@@ -12,7 +12,7 @@ import { CreateSocialDto } from './dto/create-social.dto';
 import { UpdateSocialDto } from './dto/update-social.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Socials')
+// @ApiTags('Socials')
 @Controller('socials')
 export class SocialsController {
   constructor(private readonly socialsService: SocialsService) {}
