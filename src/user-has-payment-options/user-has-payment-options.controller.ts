@@ -10,7 +10,9 @@ import {
 import { UserHasPaymentOptionsService } from './user-has-payment-options.service';
 import { CreateUserHasPaymentOptionDto } from './dto/create-user-has-payment-option.dto';
 import { UpdateUserHasPaymentOptionDto } from './dto/update-user-has-payment-option.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("UserHasPaymentOptions")
 @Controller('user-has-payment-options')
 export class UserHasPaymentOptionsController {
   constructor(
