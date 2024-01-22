@@ -12,7 +12,7 @@ import { CreateUserHasPaymentOptionDto } from './dto/create-user-has-payment-opt
 import { UpdateUserHasPaymentOptionDto } from './dto/update-user-has-payment-option.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags("UserHasPaymentOptions")
+@ApiTags('UserHasPaymentOptions')
 @Controller('user-has-payment-options')
 export class UserHasPaymentOptionsController {
   constructor(

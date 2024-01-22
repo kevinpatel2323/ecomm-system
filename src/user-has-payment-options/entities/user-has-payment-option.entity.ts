@@ -1,5 +1,11 @@
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 @Entity({ name: 'userHasPaymentOptions' })
 export class UserHasPaymentOption {

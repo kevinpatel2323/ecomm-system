@@ -1,8 +1,15 @@
 import { OrderDetail } from 'src/order-details/entities/order-detail.entity';
 import { Order } from 'src/order/entities/order.entity';
+import { Product } from 'src/products/entities/product.entity';
 import { UserHasAddress } from 'src/user-has-address/entities/user-has-address.entity';
 import { UserHasPaymentOption } from 'src/user-has-payment-options/entities/user-has-payment-option.entity';
-import { Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 @Entity({ name: 'users' })
@@ -46,15 +53,15 @@ export class User {
   @OneToMany(() => UserHasAddress, (userHasAddress) => userHasAddress.user)
   addresses: UserHasAddress[];
 
-  @OneToMany(() => UserHasPaymentOption, (userHasPaymentOption) => userHasPaymentOption.user)
+  @OneToMany(
+    () => UserHasPaymentOption,
+    (userHasPaymentOption) => userHasPaymentOption.user,
+  )
   paymentOptions: UserHasPaymentOption[];
 
-  @OneToMany(()=>Order,(order)=>order.user)
-  orders:Order[]
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
-  
+  @OneToMany(() => Product, (product) => product.user)
+  products: Product[];
 }
-
-
-
-

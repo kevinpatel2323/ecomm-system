@@ -46,10 +46,7 @@ export class Variant {
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deletedAt: Date;
 
-  @OneToOne(()=>Product, (product) => product.variant)
+  @OneToOne(() => Product, (product) => product.variant)
   @JoinColumn({ name: 'productId' })
   product: Product;
-
 }
-
-

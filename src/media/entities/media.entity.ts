@@ -1,8 +1,10 @@
+import { Product } from 'src/products/entities/product.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -41,4 +43,7 @@ export class Media {
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deletedAt: Date;
+
+  @ManyToMany(() => Product, (product) => product.media)
+  products: Product[];
 }

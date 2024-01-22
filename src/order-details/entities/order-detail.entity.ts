@@ -1,5 +1,6 @@
 import { Order } from 'src/order/entities/order.entity';
 import { Product } from 'src/products/entities/product.entity';
+import { UserHasAddress } from 'src/user-has-address/entities/user-has-address.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -69,4 +71,11 @@ export class OrderDetail {
   @OneToOne(() => Product, (product) => product.orderDetail)
   @JoinColumn({ name: 'productId' })
   product: Product;
+
+  @OneToMany(
+    () => UserHasAddress,
+    (userHasAddress) => userHasAddress.orderDetail,
+  )
+  @JoinColumn({ name: 'addressId' })
+  address: UserHasAddress;
 }

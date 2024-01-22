@@ -1,6 +1,10 @@
 import { Category } from 'src/category/entities/category.entity';
+import { Color } from 'src/colors/entities/color.entity';
+import { Media } from 'src/media/entities/media.entity';
 import { OrderDetail } from 'src/order-details/entities/order-detail.entity';
 import { Social } from 'src/socials/entities/social.entity';
+import { Tag } from 'src/tags/entities/tag.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Variant } from 'src/variants/entities/variant.entity';
 import {
   Column,
@@ -13,6 +17,8 @@ import {
   OneToOne,
   ManyToOne,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity({ name: 'products' })
@@ -68,18 +74,41 @@ export class Product {
   @OneToOne(() => OrderDetail, (orderDetail) => orderDetail.product)
   orderDetail: OrderDetail;
 
-  @OneToMany(()=>Social, (social) => social.product)
-  socials: Social[]
+  @OneToMany(() => Social, (social) => social.product)
+  socials: Social[];
 
   @OneToOne(() => Variant, (variant) => variant.product)
   variant: Variant;
 
-  @ManyToOne(()=>Category, (category) => category.products)
+  @ManyToOne(() => Category, (category) => category.products)
   @JoinColumn({ name: 'categoryId' })
   category: Category;
-  
+
+  @ManyToOne(() => User, (user) => user.products)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @ManyToMany(() => Tag, (tag) => tag.products)
+  @JoinTable({
+    name: 'productHasTags',
+    joinColumn: { name: 'productId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tagId', referencedColumnName: 'id' },
+  })
+  tags: Tag[];
+
+  @ManyToMany(() => Color, (color) => color.products)
+  @JoinTable({
+    name: 'productsHasColors',
+    joinColumn: { name: 'productId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'colorId', referencedColumnName: 'id' },
+  })
+  colors: Color[];
+
+  @ManyToMany(() => Media, (media) => media.products)
+  @JoinTable({
+    name: 'productsHasMedia',
+    joinColumn: { name: 'productId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'mediaId', referencedColumnName: 'id' },
+  })
+  media: Media[];
 }
-
-
-
-

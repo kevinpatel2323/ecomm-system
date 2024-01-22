@@ -1,5 +1,12 @@
+import { OrderDetail } from 'src/order-details/entities/order-detail.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 @Entity({ name: 'userHasAddress' })
 export class UserHasAddress {
@@ -45,4 +52,7 @@ export class UserHasAddress {
   @ManyToOne(() => User, (user) => user.addresses)
   @JoinColumn({ name: 'userId' })
   user: User;
+
+  @ManyToOne(() => OrderDetail, (orderDetail) => orderDetail.address)
+  orderDetail: OrderDetail;
 }

@@ -12,7 +12,7 @@ import { CreateVariantDto } from './dto/create-variant.dto';
 import { UpdateVariantDto } from './dto/update-variant.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags("Variants")
+@ApiTags('Variants')
 @Controller('variants')
 export class VariantsController {
   constructor(private readonly variantsService: VariantsService) {}

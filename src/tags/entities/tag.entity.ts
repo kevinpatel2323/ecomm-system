@@ -1,3 +1,4 @@
+import { Product } from 'src/products/entities/product.entity';
 import {
   Column,
   CreateDateColumn,
@@ -5,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToMany,
 } from 'typeorm';
 
 @Entity()
@@ -31,4 +33,7 @@ export class Tag {
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deletedAt: Date;
+
+  @ManyToMany(() => Product, (product) => product.tags)
+  products: Product[];
 }

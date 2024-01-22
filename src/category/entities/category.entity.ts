@@ -35,6 +35,6 @@ export class Category {
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deletedAt: Date;
 
-  @OneToMany(()=> Product, (product) => product.category)
-  products: Product[]
+  @OneToMany(() => Product, (product) => product.category)
+  products: Product[];
 }
