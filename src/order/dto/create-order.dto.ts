@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsInt, IsString,  } from "class-validator";
+import { IsDateString, IsInt, IsString,IsEnum  } from "class-validator";
+
+enum Status {
+    PAID = 'paid',
+    REFUNDED = 'refunded',
+    CANCELLED = 'cancelled',
+  }
 
 export class CreateOrderDto {
     @ApiProperty()
@@ -11,8 +17,8 @@ export class CreateOrderDto {
     date:Date
 
     @ApiProperty()
-    @IsString()
-    status:string
+    @IsEnum(Status)
+    status:Status
 
     @ApiProperty()
     @IsInt()
@@ -27,3 +33,5 @@ export class CreateOrderDto {
     netAmount:number
 
 }
+
+

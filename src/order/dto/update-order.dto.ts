@@ -1,7 +1,13 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateOrderDto } from './create-order.dto';
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsInt, IsString,  } from "class-validator";
+import { IsDateString, IsInt, IsString,IsEnum  } from "class-validator";
+
+enum Status {
+    PAID = 'paid',
+    REFUNDED = 'refunded',
+    CANCELLED = 'cancelled',
+  }
 export class UpdateOrderDto extends PartialType(CreateOrderDto) {
     @ApiProperty()
     @IsInt()
@@ -12,8 +18,8 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto) {
     date:Date
 
     @ApiProperty()
-    @IsString()
-    status:string
+    @IsEnum(Status)
+    status:Status
 
     @ApiProperty()
     @IsInt()
