@@ -37,7 +37,7 @@ export class TagsController {
     return this.tagsService.findOne(+id);
   }
 
-  @ApiOperation({ summary: 'Update Tag By Id' })
+  // @ApiOperation({ summary: 'Update Tag By Id' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTagDto: UpdateTagDto) {
     return this.tagsService.update(+id, updateTagDto);
