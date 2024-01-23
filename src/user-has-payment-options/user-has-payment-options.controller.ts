@@ -11,7 +11,7 @@ import {
 import { UserHasPaymentOptionsService } from './user-has-payment-options.service';
 import { CreateUserHasPaymentOptionDto } from './dto/create-user-has-payment-option.dto';
 import { UpdateUserHasPaymentOptionDto } from './dto/update-user-has-payment-option.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SearchDto } from 'src/users/dto/search.dto';
 
 @ApiTags('UserHasPaymentOptions')
@@ -21,6 +21,7 @@ export class UserHasPaymentOptionsController {
     private readonly userHasPaymentOptionsService: UserHasPaymentOptionsService,
   ) {}
 
+  @ApiOperation({ summary: 'Create UserHasPaymentOptions' })
   @Post()
   create(@Body() createUserHasPaymentOptionDto: CreateUserHasPaymentOptionDto) {
     return this.userHasPaymentOptionsService.create(
@@ -28,16 +29,19 @@ export class UserHasPaymentOptionsController {
     );
   }
 
+  @ApiOperation({ summary: 'Find All UserHasPaymentOptions' })
   @Get()
   findAll(@Query() searchDto: SearchDto) {
     return this.userHasPaymentOptionsService.findAll(searchDto);
   }
 
+  @ApiOperation({ summary: 'Find UserHasPaymentOptions By Id' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userHasPaymentOptionsService.findOne(+id);
   }
 
+  @ApiOperation({ summary: 'Update UserHasPaymentOptions By Id' })
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -49,6 +53,7 @@ export class UserHasPaymentOptionsController {
     );
   }
 
+  @ApiOperation({ summary: 'Remove UserHasPaymentOptions' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userHasPaymentOptionsService.remove(+id);
