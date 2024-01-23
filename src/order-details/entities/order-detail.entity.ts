@@ -19,31 +19,31 @@ export class OrderDetail {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable:false})
   orderId: number;
 
-  @Column()
+  @Column({nullable:false})
   productId: number;
 
-  @Column()
+  @Column({nullable:false})
   addressId: number;
 
-  @Column()
+  @Column({nullable:false})
   receivedAt: Date;
 
-  @Column()
+  @Column({nullable:false})
   transmittedAt: Date;
 
-  @Column()
+  @Column({nullable:false})
   orderPrice: number;
 
-  @Column()
+  @Column({nullable:false})
   deliveryCharges: number;
 
-  @Column()
+  @Column({nullable:false})
   taxes: number;
 
-  @Column()
+  @Column({nullable:false})
   total: number;
 
   @CreateDateColumn({
