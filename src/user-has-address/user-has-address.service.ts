@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserHasAddressDto } from './dto/create-user-has-address.dto';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { UpdateUserHasAddressDto } from './dto/update-user-has-address.dto';
+import { UserHasAddressQuery } from './entities/userHasAddress.query';
+
 
 @Injectable()
 export class UserHasAddressService {
-  create(createUserHasAddressDto: CreateUserHasAddressDto) {
-    return 'This action adds a new userHasAddress';
+  constructor(private readonly UserHasAddressQuery: UserHasAddressQuery) {}
+  create(createUserHasAddressDto:CreateUserHasAddressDto) {
+    return this.UserHasAddressQuery.upsert(createUserHasAddressDto);
   }
 
-  findAll() {
-    return `This action returns all userHasAddress`;
+  findAll(searchDto: SearchDto) {
+    return this.UserHasAddressQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} userHasAddress`;
+    return this.UserHasAddressQuery.findOne({ id: id });
   }
 
-  update(id: number, updateUserHasAddressDto: UpdateUserHasAddressDto) {
-    return `This action updates a #${id} userHasAddress`;
+  update(id: number, updateUserHasAddressDto:UpdateUserHasAddressDto) {
+    return this.UserHasAddressQuery.upsert({ id: id, ...updateUserHasAddressDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} userHasAddress`;
+    return this.UserHasAddressQuery.remove(id);
   }
 }

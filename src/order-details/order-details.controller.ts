@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { OrderDetailsService } from './order-details.service';
 import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 import { UpdateOrderDetailDto } from './dto/update-order-detail.dto';
-import { ApiTags } from '@nestjs/swagger';
+
 
 @ApiTags('Order Details')
 @Controller('order-details')
@@ -18,13 +21,14 @@ export class OrderDetailsController {
   constructor(private readonly orderDetailsService: OrderDetailsService) {}
 
   @Post()
-  create(@Body() createOrderDetailDto: CreateOrderDetailDto) {
-    return this.orderDetailsService.create(createOrderDetailDto);
+  @ApiOperation({ summary: 'Create a new Social' })
+  create(@Body() CreateOrderDetailDto:CreateOrderDetailDto) {
+    return this.orderDetailsService.create(CreateOrderDetailDto);
   }
 
   @Get()
-  findAll() {
-    return this.orderDetailsService.findAll();
+  findAll(@Query() searchDto: SearchDto) {
+    return this.orderDetailsService.findAll(searchDto);
   }
 
   @Get(':id')
@@ -33,11 +37,8 @@ export class OrderDetailsController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateOrderDetailDto: UpdateOrderDetailDto,
-  ) {
-    return this.orderDetailsService.update(+id, updateOrderDetailDto);
+  update(@Param('id') id: string, @Body() UpdateOrderDetailDto:UpdateOrderDetailDto) {
+    return this.orderDetailsService.update(+id, UpdateOrderDetailDto);
   }
 
   @Delete(':id')

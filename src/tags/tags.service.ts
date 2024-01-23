@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTagDto } from './dto/create-tag.dto';
-import { UpdateTagDto } from './dto/update-tag.dto';
+import { TagQuery } from './entities/tag.query';
+import { CreateColorDto } from 'src/colors/dto/create-color.dto';
+import { SearchDto } from 'src/users/dto/search.dto';
+import { UpdateColorDto } from 'src/colors/dto/update-color.dto';
+
 
 @Injectable()
 export class TagsService {
-  create(createTagDto: CreateTagDto) {
-    return 'This action adds a new tag';
+  constructor(private readonly tagQuery: TagQuery) {}
+  create(createcolorDto: CreateColorDto) {
+    return this.tagQuery.upsert(createcolorDto);
   }
 
-  findAll() {
-    return `This action returns all tags`;
+  findAll(searchDto: SearchDto) {
+    return this.tagQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} tag`;
+    return this.tagQuery.findOne({ id: id });
   }
 
-  update(id: number, updateTagDto: UpdateTagDto) {
-    return `This action updates a #${id} tag`;
+  update(id: number, updateRoleDto: UpdateColorDto) {
+    return this.tagQuery.upsert({ id: id, ...updateRoleDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} tag`;
+    return this.tagQuery.remove(id);
   }
 }

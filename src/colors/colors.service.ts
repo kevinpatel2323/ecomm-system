@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
+import { ColorQuery } from './entities/color.query';
 import { CreateColorDto } from './dto/create-color.dto';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { UpdateColorDto } from './dto/update-color.dto';
 
 @Injectable()
-export class ColorsService {
-  create(createColorDto: CreateColorDto) {
-    return 'This action adds a new color';
+export class ColorService {
+  constructor(private readonly colorQuery: ColorQuery) {}
+  create(createcolorDto: CreateColorDto) {
+    return this.colorQuery.upsert(createcolorDto);
   }
 
-  findAll() {
-    return `This action returns all colors`;
+  findAll(searchDto: SearchDto) {
+    return this.colorQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} color`;
+    return this.colorQuery.findOne({ id: id });
   }
 
   update(id: number, updateColorDto: UpdateColorDto) {
-    return `This action updates a #${id} color`;
+    return this.colorQuery.upsert({ id: id, ...updateColorDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} color`;
+    return this.colorQuery.remove(id);
   }
 }

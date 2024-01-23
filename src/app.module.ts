@@ -14,6 +14,9 @@ import { OrderDetailsModule } from './order-details/order-details.module';
 import { SocialsModule } from './socials/socials.module';
 import { VariantsModule } from './variants/variants.module';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseProvider } from 'databse.provider';
+
 // import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -21,6 +24,9 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       //    envFilePath,
       isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      useClass: DatabaseProvider,
     }),
     UsersModule,
     UserHasAddressModule,

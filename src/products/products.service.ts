@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { ProductQuery } from './entities/product.query';
 import { CreateProductDto } from './dto/create-product.dto';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
+
 @Injectable()
-export class ProductsService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+export class ProductService {
+  constructor(private readonly productQuery: ProductQuery) {}
+  create(createProductDto:CreateProductDto) {
+    return this.productQuery.upsert(createProductDto);
   }
 
-  findAll() {
-    return `This action returns all products`;
+  findAll(searchDto: SearchDto) {
+    return this.productQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} product`;
+    return this.productQuery.findOne({ id: id });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  update(id: number, updateProductDto:UpdateProductDto) {
+    return this.productQuery.upsert({ id: id, ...updateProductDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+    return this.productQuery.remove(id);
   }
 }

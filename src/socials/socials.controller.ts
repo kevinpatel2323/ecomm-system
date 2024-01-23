@@ -6,25 +6,28 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { SocialsService } from './socials.service';
-import { CreateSocialDto } from './dto/create-social.dto';
 import { UpdateSocialDto } from './dto/update-social.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { CreateSocialDto } from './dto/create-social.dto';
 
-// @ApiTags('Socials')
+@ApiTags('Socials')
 @Controller('socials')
 export class SocialsController {
   constructor(private readonly socialsService: SocialsService) {}
 
   @Post()
-  create(@Body() createSocialDto: CreateSocialDto) {
-    return this.socialsService.create(createSocialDto);
+  @ApiOperation({ summary: 'Create a new variant' })
+  create(@Body() CreateSocialDto:CreateSocialDto) {
+    return this.socialsService.create(CreateSocialDto);
   }
 
   @Get()
-  findAll() {
-    return this.socialsService.findAll();
+  findAll(@Query() searchDto: SearchDto) {
+    return this.socialsService.findAll(searchDto);
   }
 
   @Get(':id')
@@ -33,8 +36,8 @@ export class SocialsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSocialDto: UpdateSocialDto) {
-    return this.socialsService.update(+id, updateSocialDto);
+  update(@Param('id') id: string, @Body() UpdateSocialDto:UpdateSocialDto) {
+    return this.socialsService.update(+id, UpdateSocialDto);
   }
 
   @Delete(':id')

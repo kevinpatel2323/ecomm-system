@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { SocialQuery } from './entities/social.query';
 import { CreateSocialDto } from './dto/create-social.dto';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { UpdateSocialDto } from './dto/update-social.dto';
+
+
 
 @Injectable()
 export class SocialsService {
-  create(createSocialDto: CreateSocialDto) {
-    return 'This action adds a new social';
+  constructor(private readonly socialQuery: SocialQuery) {}
+  create(CreateSocialDto:CreateSocialDto) {
+    return this.socialQuery.upsert(CreateSocialDto);
   }
 
-  findAll() {
-    return `This action returns all socials`;
+  findAll(searchDto: SearchDto) {
+    return this.socialQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} social`;
+    return this.socialQuery.findOne({ id: id });
   }
 
-  update(id: number, updateSocialDto: UpdateSocialDto) {
-    return `This action updates a #${id} social`;
+  update(id: number,UpdateSocialDto:UpdateSocialDto) {
+    return this.socialQuery.upsert({ id: id, ...UpdateSocialDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} social`;
+    return this.socialQuery.remove(id);
   }
 }

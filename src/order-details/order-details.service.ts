@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { SearchDto } from 'src/users/dto/search.dto';
+import { OrderDetailsQuery } from './entities/orderDetails.query';
 import { CreateOrderDetailDto } from './dto/create-order-detail.dto';
 import { UpdateOrderDetailDto } from './dto/update-order-detail.dto';
 
+
+
+
 @Injectable()
 export class OrderDetailsService {
-  create(createOrderDetailDto: CreateOrderDetailDto) {
-    return 'This action adds a new orderDetail';
+  constructor(private readonly orderDetailsQuery: OrderDetailsQuery) {}
+  create(CreateOrderDetailDto: CreateOrderDetailDto) {
+    return this.orderDetailsQuery.upsert(CreateOrderDetailDto);
   }
 
-  findAll() {
-    return `This action returns all orderDetails`;
+  findAll(searchDto: SearchDto) {
+    return this.orderDetailsQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} orderDetail`;
+    return this.orderDetailsQuery.findOne({ id: id });
   }
 
-  update(id: number, updateOrderDetailDto: UpdateOrderDetailDto) {
-    return `This action updates a #${id} orderDetail`;
+  update(id: number,UpdateOrderDetailDto:UpdateOrderDetailDto) {
+    return this.orderDetailsQuery.upsert({ id: id, ...UpdateOrderDetailDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} orderDetail`;
+    return this.orderDetailsQuery.remove(id);
   }
 }

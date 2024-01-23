@@ -7,15 +7,17 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ColorsService } from './colors.service';
+import { ColorService } from './colors.service';
 import { CreateColorDto } from './dto/create-color.dto';
 import { UpdateColorDto } from './dto/update-color.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Query } from '@nestjs/common';
+import { SearchDto } from 'src/users/dto/search.dto';
 
 @ApiTags('Colors')
 @Controller('colors')
 export class ColorsController {
-  constructor(private readonly colorsService: ColorsService) {}
+  constructor(private readonly colorsService: ColorService) {}
 
   @Post()
   create(@Body() createColorDto: CreateColorDto) {
@@ -23,8 +25,8 @@ export class ColorsController {
   }
 
   @Get()
-  findAll() {
-    return this.colorsService.findAll();
+  findAll(@Query() searchDto:SearchDto) {
+    return this.colorsService.findAll(searchDto);
   }
 
   @Get(':id')

@@ -53,6 +53,6 @@ export class UserHasAddress {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @ManyToOne(() => OrderDetail, (orderDetail) => orderDetail.address)
-  orderDetail: OrderDetail;
+  // @ManyToOne(() => OrderDetail, (orderDetail) => orderDetail.address )
+  // orderDetail: OrderDetail;
 }

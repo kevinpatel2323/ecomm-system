@@ -11,6 +11,8 @@ import { TagsService } from './tags.service';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Query } from '@nestjs/common';
+import { SearchDto } from 'src/users/dto/search.dto';
 
 @ApiTags('Tags')
 @Controller('tags')
@@ -23,8 +25,8 @@ export class TagsController {
   }
 
   @Get()
-  findAll() {
-    return this.tagsService.findAll();
+  findAll(@Query() SearchDto:SearchDto) {
+    return this.tagsService.findAll(SearchDto);
   }
 
   @Get(':id')

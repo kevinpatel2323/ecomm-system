@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { VariantsService } from './variants.service';
 import { CreateVariantDto } from './dto/create-variant.dto';
 import { UpdateVariantDto } from './dto/update-variant.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { SearchDto } from 'src/users/dto/search.dto';
 
 @ApiTags('Variants')
 @Controller('variants')
@@ -24,8 +26,8 @@ export class VariantsController {
   }
 
   @Get()
-  findAll() {
-    return this.variantsService.findAll();
+  findAll(@Query() searchDto: SearchDto) {
+    return this.variantsService.findAll(searchDto);
   }
 
   @Get(':id')

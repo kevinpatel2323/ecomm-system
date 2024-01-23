@@ -72,10 +72,10 @@ export class OrderDetail {
   @JoinColumn({ name: 'productId' })
   product: Product;
 
-  @OneToMany(
-    () => UserHasAddress,
-    (userHasAddress) => userHasAddress.orderDetail,
-  )
-  @JoinColumn({ name: 'addressId' })
-  address: UserHasAddress;
+  // @OneToMany(
+  //   () => UserHasAddress,
+  //   (userHasAddress) => userHasAddress.orderDetail,
+  // )
+  // @JoinColumn({ name: 'addressId' })
+  // address: UserHasAddress;
 }

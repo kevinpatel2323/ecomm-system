@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { UserHasAddressService } from './user-has-address.service';
 import { CreateUserHasAddressDto } from './dto/create-user-has-address.dto';
 import { UpdateUserHasAddressDto } from './dto/update-user-has-address.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { SearchDto } from 'src/users/dto/search.dto';
 
 @ApiTags('UserHasAddress')
 @Controller('user-has-address')
@@ -23,8 +25,8 @@ export class UserHasAddressController {
   }
 
   @Get()
-  findAll() {
-    return this.userHasAddressService.findAll();
+  findAll(@Query() searchDto: SearchDto) {
+    return this.userHasAddressService.findAll(searchDto);
   }
 
   @Get(':id')

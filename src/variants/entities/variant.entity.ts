@@ -23,7 +23,7 @@ export class Variant {
   itemPrice: number;
 
   @Column()
-  currency: number;
+  currency: string;
 
   @Column()
   SKU: number;

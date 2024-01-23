@@ -1,29 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { UserHasPaymnetOptionsQuery } from './entities/userHasPaymentOptions.query';
 import { CreateUserHasPaymentOptionDto } from './dto/create-user-has-payment-option.dto';
+import { SearchDto } from 'src/users/dto/search.dto';
 import { UpdateUserHasPaymentOptionDto } from './dto/update-user-has-payment-option.dto';
+
+
 
 @Injectable()
 export class UserHasPaymentOptionsService {
-  create(createUserHasPaymentOptionDto: CreateUserHasPaymentOptionDto) {
-    return 'This action adds a new userHasPaymentOption';
+  constructor(private readonly UserHasPaymentOptionsQuery: UserHasPaymnetOptionsQuery) {}
+  create(createUserHasPaymentOptionDto:CreateUserHasPaymentOptionDto) {
+    return this.UserHasPaymentOptionsQuery.upsert(createUserHasPaymentOptionDto);
   }
 
-  findAll() {
-    return `This action returns all userHasPaymentOptions`;
+  findAll(searchDto: SearchDto) {
+    return this.UserHasPaymentOptionsQuery.find(searchDto);
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} userHasPaymentOption`;
+    return this.UserHasPaymentOptionsQuery.findOne({ id: id });
   }
 
-  update(
-    id: number,
-    updateUserHasPaymentOptionDto: UpdateUserHasPaymentOptionDto,
-  ) {
-    return `This action updates a #${id} userHasPaymentOption`;
+  update(id: number, updateUserHasPaymentOptionDto:UpdateUserHasPaymentOptionDto) {
+    return this.UserHasPaymentOptionsQuery.upsert({ id: id, ...updateUserHasPaymentOptionDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} userHasPaymentOption`;
+    return this.UserHasPaymentOptionsQuery.remove(id);
   }
 }
