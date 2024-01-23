@@ -31,7 +31,7 @@ export class TagsController {
     return this.tagsService.findAll(SearchDto);
   }
 
-  @ApiOperation({ summary: 'Find Tag By Id' })
+  // @ApiOperation({ summary: 'Find Tag By Id' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tagsService.findOne(+id);
